@@ -84,9 +84,6 @@ const Mask: React.FC<MaskProps> = (props) => {
       onWindowResize();
     });
 
-    window.addEventListener('scroll', () => {
-      onWindowResize();
-    });
   }, [element]);
 
   useEffect(() => {
