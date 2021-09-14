@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MASK_ANIMATION_TIME } from '../const';
 import './mask.scss';
 import classNames from 'classnames';
+import { getMaskStyle } from '../utils/get-mask-style';
 
 interface MaskProps {
   // 基准元素
@@ -16,38 +17,6 @@ interface MaskProps {
   // mask 是否可见，如果这个值为 false，那么它是透明的，底部的内容也是可操作的
   visible?: boolean;
 }
-
-const getMaskStyle = (element: HTMLElement, container: HTMLElement) => {
-  if (!element) {
-    return {};
-  }
-
-  const {
-    scrollHeight: containerScrollHeight,
-    scrollWidth: containerScrollWidth,
-    scrollTop: containerScrollTop,
-    scrollLeft: containerScrollLeft
-  } = container;
-
-  const {
-    height: elementHeight,
-    width: elementWidth,
-    left: elementLeft,
-    top: elementTop
-  } = element.getBoundingClientRect();
-
-  const elementTopWithScroll = containerScrollTop + elementTop;
-  const elementLeftWithScroll = containerScrollLeft + elementLeft;
-
-  return {
-    width: containerScrollWidth,
-    height: containerScrollHeight,
-    borderTopWidth: Math.max(elementTopWithScroll, 0),
-    borderLeftWidth: Math.max(elementLeftWithScroll, 0),
-    borderBottomWidth: Math.max(containerScrollHeight - elementHeight - elementTopWithScroll, 0),
-    borderRightWidth: Math.max(containerScrollWidth - elementWidth - elementLeftWithScroll, 0)
-  };
-};
 
 const Mask: React.FC<MaskProps> = (props) => {
   const { element, renderMaskContent, visible = true } = props;

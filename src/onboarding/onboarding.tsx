@@ -2,21 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Mask from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
-import { TooltipPlacement } from 'antd/es/tooltip';
 import { MASK_ANIMATION_TIME } from '../const';
 import PopoverContent, { PopoverContentProps } from './popover-content';
 import './onboarding.scss';
-
-interface OnBoardingStepConfig {
-  // 选择的元素
-  selector: () => HTMLElement | null;
-  // mask 的容器
-  container?: () => HTMLElement | null;
-  // tooltip 的位置
-  placement?: TooltipPlacement;
-  // 内容
-  renderContent?: (currentStep: number) => React.ReactNode;
-}
+import { OnBoardingStatus, OnBoardingStepConfig } from '../types';
 
 interface OnBoardingProps {
   // 初始化步骤
@@ -27,17 +16,6 @@ interface OnBoardingProps {
   useDefaultOperations?: boolean;
   // 是否展示遮罩
   isShowMask?: boolean;
-}
-
-enum OnBoardingStatus {
-  // 未开始，例如暂未查找到步骤的节点
-  NOT_READY,
-
-  // 已经准备好
-  READY,
-
-  // 流程结束
-  END
 }
 
 const OnBoarding: React.FC<OnBoardingProps> = (props) => {
