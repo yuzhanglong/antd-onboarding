@@ -1,19 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Mask from './mask';
+import Mask from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { TooltipPlacement } from 'antd/es/tooltip';
-import { MASK_ANIMATION_TIME } from './const';
+import { MASK_ANIMATION_TIME } from '../const';
+import PopoverContent, { PopoverContentProps } from './popover-content';
 
 interface OnBoardingStepConfig {
+  // 选择的元素
   selector: () => HTMLElement | null;
+  // mask 的容器
   container?: () => HTMLElement | null;
-  onStepIn?: () => void;
-  placement: TooltipPlacement;
+  // tooltip 的位置
+  placement?: TooltipPlacement;
+  // 内容
+  renderContent?: (currentStep: number) => React.ReactNode;
 }
 
 interface OnBoardingProps {
+  // 初始化步骤
+  initialStep?: number;
+  // 步骤配置
   steps: OnBoardingStepConfig[];
+  // 是否展示默认操作模块(两个按钮，上一步 + 下一步)
+  useDefaultOperations?: boolean;
 }
 
 enum OnBoardingStatus {
@@ -28,13 +38,13 @@ enum OnBoardingStatus {
 }
 
 const OnBoarding: React.FC<OnBoardingProps> = (props) => {
-  const { steps } = props;
+  const { steps, initialStep, useDefaultOperations = true } = props;
 
   // 当前状态
   const [currentStatus, setCurrentStatus] = useState<OnBoardingStatus>(OnBoardingStatus.NOT_READY);
 
   // 当前步骤(step index)
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(initialStep || 0);
 
   // 用于渲染
   const [renderTick, setRenderTick] = useState<number>(0);
@@ -53,7 +63,7 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
   // 获取当前步骤
   const getCurrentStep = () => {
-    return steps[currentStep];
+    return steps[currentStep] || {};
   };
 
   // 重置 mask 状态
@@ -66,14 +76,13 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
   const initCurrentSelectedElement = () => {
     if (!getCurrentTargetElement()) {
-      // MutationObserver 会不会更合理？可以考虑做个 benchmark
       setRenderTick(renderTick + 1);
     } else {
       setCurrentStatus(OnBoardingStatus.READY);
     }
   };
 
-  const prev = () => {
+  const back = () => {
     // 如果是第一步，我们不应该往前走
     if (currentStep === 0) {
       return;
@@ -83,7 +92,7 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     resetMaskStatus();
   };
 
-  const next = () => {
+  const forward = () => {
     // 如果是最后一步
     if (currentStep === steps.length - 1) {
       setCurrentStatus(OnBoardingStatus.END);
@@ -95,25 +104,31 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   };
 
   const renderPopover = (wrapper: React.ReactNode) => {
+    const { renderContent } = getCurrentStep();
+    const content = renderContent ? renderContent(currentStep) : null;
+
+    const options: PopoverContentProps = {
+      operationArea: useDefaultOperations ? (
+        <div className={'onboarding-default-operation'}>
+          <Button
+            className={'back'}
+            onClick={() => back()}>
+            Back
+          </Button>
+          <Button
+            className={'forward'}
+            type={'primary'}
+            onClick={() => forward()}>
+            Forward
+          </Button>
+        </div>
+      ) : undefined,
+      content: content
+    };
+
     return !isMaskMoving ? (
       <Popover
-        content={
-          <div>
-            <div>
-              {currentStep}/{steps.length - 1}
-            </div>
-            <Button onClick={() => {
-              prev();
-            }}>
-              Back
-            </Button>
-            <Button type={'primary'} onClick={() => {
-              next();
-            }}>
-              Next
-            </Button>
-          </div>
-        }
+        content={<PopoverContent {...options} />}
         visible={true}
         placement={getCurrentStep()?.placement}>
         {wrapper}
@@ -122,9 +137,11 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   };
 
   return ReactDOM.createPortal(
-    currentStatus === OnBoardingStatus.READY ? <Mask
-      element={getCurrentTargetElement() || document.body}
-      renderMaskContent={(wrapper) => renderPopover(wrapper)} /> : null,
+    currentStatus === OnBoardingStatus.READY ? (
+      <Mask
+        element={getCurrentTargetElement() || document.body}
+        renderMaskContent={(wrapper) => renderPopover(wrapper)} />
+    ) : null,
     document.body
   );
 };

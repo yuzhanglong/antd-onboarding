@@ -1,6 +1,6 @@
 import React from 'react';
-import OnBoarding from './onboarding';
-import './style.css';
+import OnBoarding from './onboarding/onboarding';
+import './style.scss';
 import { Card } from 'antd';
 
 function App() {
@@ -14,22 +14,42 @@ function App() {
         className='hello-2' id={'hello-2'}>
         又是一个 Hello World~
       </Card>
-      <OnBoarding steps={
-        [
-          {
-            selector: () => {
-              return document.getElementById('hello-1');
+      <iframe
+        id='inlineFrameExample'
+        title='Inline Frame Example'
+        width='300'
+        height='200'
+        src='https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik'>
+      </iframe>
+
+      <OnBoarding
+        initialStep={2}
+        steps={
+          [
+            {
+              selector: () => {
+                return document.getElementById('hello-1');
+              },
+              renderContent: (currentStep) => {
+                return (
+                  <div>{currentStep}</div>
+                );
+              },
+              placement: 'bottom'
             },
-            placement: 'bottom'
-          },
-          {
-            placement: 'right',
-            selector: () => {
-              return document.getElementById('hello-2');
+            {
+              selector: () => {
+                return document.getElementById('hello-2');
+              }
+            },
+            {
+              placement: 'right',
+              selector: () => {
+                return document.getElementById('inlineFrameExample');
+              }
             }
-          }
-        ]
-      } />
+          ]
+        } />
     </div>
   );
 }

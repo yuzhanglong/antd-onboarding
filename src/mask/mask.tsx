@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MASK_ANIMATION_TIME } from './const';
-import './mask.css';
+import { MASK_ANIMATION_TIME } from '../const';
+import './mask.scss';
+import classNames from 'classnames';
 
 interface MaskProps {
   element: HTMLElement;
@@ -67,7 +68,9 @@ const Mask: React.FC<MaskProps> = (props) => {
   }, [element]);
 
   return (
-    <div style={style} className={!isAnimationMaskAllowed ? 'mask' : 'mask-animation'}>
+    <div
+      style={style}
+      className={classNames('mask', isAnimationMaskAllowed && 'mask-animation')}>
       {
         renderMaskContent && renderMaskContent(
           <div className={'mask-content'} style={{ width: '100%', height: '100%' }} />
