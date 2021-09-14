@@ -11,6 +11,7 @@ const getMaskStyle = (element: HTMLElement) => {
   if (!element) {
     return {};
   }
+
   const container = window.document.documentElement;
   const { scrollWidth, scrollHeight, scrollTop } = container;
   const anchorPos = element.getBoundingClientRect();

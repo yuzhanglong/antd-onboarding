@@ -1,6 +1,7 @@
 import React from 'react';
 import OnBoarding from './onboarding';
 import './style.css';
+import { Card } from 'antd';
 
 function App() {
   return (
@@ -9,17 +10,17 @@ function App() {
         className='hello-1' id={'hello-1'}>
         Hello World
       </div>
-      <div
+      <Card
         className='hello-2' id={'hello-2'}>
         又是一个 Hello World~
-      </div>
+      </Card>
       <OnBoarding steps={
         [
           {
             selector: () => {
               return document.getElementById('hello-1');
             },
-            placement: 'right'
+            placement: 'bottom'
           },
           {
             placement: 'right',
