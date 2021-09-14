@@ -78,7 +78,9 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   };
 
   const initCurrentSelectedElement = () => {
-    if (!getCurrentTargetElement()) {
+    const currentElement = getCurrentTargetElement();
+
+    if (!currentElement) {
       setRenderTick(renderTick + 1);
     } else {
       setCurrentStatus(OnBoardingStatus.READY);

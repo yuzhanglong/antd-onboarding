@@ -14,6 +14,12 @@ const App: React.FC = () => {
         className='hello-2' id={'hello-2'}>
         又是一个 Hello World~
       </Card>
+      <Card
+        className='hello-3'
+        id={'hello-3'}>
+        第三个 hello world!
+      </Card>
+
       <iframe
         id='inlineFrameExample'
         title='Inline Frame Example'
@@ -23,7 +29,8 @@ const App: React.FC = () => {
       </iframe>
 
       <OnBoarding
-        initialStep={2}
+        isShowMask={true}
+        initialStep={0}
         steps={
           [
             {
@@ -39,13 +46,24 @@ const App: React.FC = () => {
             },
             {
               selector: () => {
-                return document.getElementById('hello-2');
-              }
+                return document.getElementById('hello-3');
+              },
+              renderContent: (currentStep) => {
+                return (
+                  <div>{currentStep}</div>
+                );
+              },
+              placement: 'left'
             },
             {
               placement: 'right',
               selector: () => {
                 return document.getElementById('inlineFrameExample');
+              }
+            },
+            {
+              selector: () => {
+                return document.getElementById('hello-2');
               }
             }
           ]

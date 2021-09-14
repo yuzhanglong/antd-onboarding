@@ -3,6 +3,13 @@
 }
 
 .hello-2 {
-  top: 400px;
+  top: 1400px;
   position: fixed;
+}
+
+.hello-3 {
+  position: fixed;
+  width: 100px;
+  height: 120px;
+  left: calc(100vw + 30px);
 }
