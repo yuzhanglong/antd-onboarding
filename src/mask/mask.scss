@@ -8,6 +8,11 @@
   z-index: 999;
 }
 
+.mask-not-visible {
+  border-color: rgba(0, 0, 0, 0);
+  z-index: -999;
+}
+
 .mask-animation {
   transition: all 0.2s ease-in-out;
 }

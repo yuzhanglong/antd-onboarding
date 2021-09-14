@@ -6,6 +6,8 @@ import classNames from 'classnames';
 interface MaskProps {
   element: HTMLElement;
   renderMaskContent?: (wrapper: React.ReactNode) => React.ReactNode;
+  // mask 是否可见，如果这个值为 false，那么它是透明的，底部的内容也是可操作的
+  visible?: boolean;
 }
 
 const getMaskStyle = (element: HTMLElement) => {
@@ -31,7 +33,7 @@ const getMaskStyle = (element: HTMLElement) => {
 };
 
 const Mask: React.FC<MaskProps> = (props) => {
-  const { element, renderMaskContent } = props;
+  const { element, renderMaskContent, visible = true } = props;
   const [style, setStyle] = useState<Record<string, any>>({});
   const [isAnimationMaskAllowed, setIsAnimationMaskAllowed] = useState<boolean>(false);
 
@@ -67,10 +69,16 @@ const Mask: React.FC<MaskProps> = (props) => {
     }, MASK_ANIMATION_TIME);
   }, [element]);
 
+  const maskClasses = classNames(
+    'mask',
+    isAnimationMaskAllowed && 'mask-animation',
+    !visible && 'mask-not-visible'
+  );
+
   return (
     <div
       style={style}
-      className={classNames('mask', isAnimationMaskAllowed && 'mask-animation')}>
+      className={maskClasses}>
       {
         renderMaskContent && renderMaskContent(
           <div className={'mask-content'} style={{ width: '100%', height: '100%' }} />

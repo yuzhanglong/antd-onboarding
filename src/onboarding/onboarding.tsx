@@ -5,6 +5,7 @@ import { Button, Popover } from 'antd';
 import { TooltipPlacement } from 'antd/es/tooltip';
 import { MASK_ANIMATION_TIME } from '../const';
 import PopoverContent, { PopoverContentProps } from './popover-content';
+import './onboarding.scss';
 
 interface OnBoardingStepConfig {
   // 选择的元素
@@ -24,6 +25,8 @@ interface OnBoardingProps {
   steps: OnBoardingStepConfig[];
   // 是否展示默认操作模块(两个按钮，上一步 + 下一步)
   useDefaultOperations?: boolean;
+  // 是否展示遮罩
+  isShowMask?: boolean;
 }
 
 enum OnBoardingStatus {
@@ -38,7 +41,7 @@ enum OnBoardingStatus {
 }
 
 const OnBoarding: React.FC<OnBoardingProps> = (props) => {
-  const { steps, initialStep, useDefaultOperations = true } = props;
+  const { steps, initialStep, useDefaultOperations = true, isShowMask = false } = props;
 
   // 当前状态
   const [currentStatus, setCurrentStatus] = useState<OnBoardingStatus>(OnBoardingStatus.NOT_READY);
@@ -107,22 +110,24 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     const { renderContent } = getCurrentStep();
     const content = renderContent ? renderContent(currentStep) : null;
 
+    const defaultOperation = (
+      <div className={'onboarding-default-operation'}>
+        <Button
+          className={'back'}
+          onClick={() => back()}>
+          Back
+        </Button>
+        <Button
+          className={'forward'}
+          type={'primary'}
+          onClick={() => forward()}>
+          Forward
+        </Button>
+      </div>
+    );
+
     const options: PopoverContentProps = {
-      operationArea: useDefaultOperations ? (
-        <div className={'onboarding-default-operation'}>
-          <Button
-            className={'back'}
-            onClick={() => back()}>
-            Back
-          </Button>
-          <Button
-            className={'forward'}
-            type={'primary'}
-            onClick={() => forward()}>
-            Forward
-          </Button>
-        </div>
-      ) : undefined,
+      operationArea: useDefaultOperations ? defaultOperation : undefined,
       content: content
     };
 
@@ -139,6 +144,7 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   return ReactDOM.createPortal(
     currentStatus === OnBoardingStatus.READY ? (
       <Mask
+        visible={isShowMask}
         element={getCurrentTargetElement() || document.body}
         renderMaskContent={(wrapper) => renderPopover(wrapper)} />
     ) : null,

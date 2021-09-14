@@ -3,7 +3,7 @@ import OnBoarding from './onboarding/onboarding';
 import './style.scss';
 import { Card } from 'antd';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className='App'>
       <div
@@ -52,6 +52,6 @@ function App() {
         } />
     </div>
   );
-}
+};
 
 export default App;
