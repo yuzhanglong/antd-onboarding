@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Mask from '../mask/mask';
+import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
-import PopoverContent, { PopoverContentProps } from './popover-content';
-import './onboarding.scss';
+import Content, { PopoverContentProps } from './content';
 import { OnBoardingStatus, OnBoardingStepConfig } from '../types';
 
 interface OnBoardingProps {
@@ -18,7 +17,7 @@ interface OnBoardingProps {
   isShowMask?: boolean;
 }
 
-const OnBoarding: React.FC<OnBoardingProps> = (props) => {
+export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   const { steps, initialStep, useDefaultOperations = true, isShowMask = false } = props;
 
   // 当前状态
@@ -44,7 +43,7 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
   // 获取当前步骤
   const getCurrentStep = () => {
-    return steps[currentStep] || {};
+    return steps[currentStep];
   };
 
   // 重置 mask 状态
@@ -87,7 +86,13 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   };
 
   const renderPopover = (wrapper: React.ReactNode) => {
-    const { renderContent } = getCurrentStep();
+    const c = getCurrentStep();
+
+    if (!c) {
+      return wrapper;
+    }
+
+    const { renderContent } = c;
     const content = renderContent ? renderContent(currentStep) : null;
 
     const defaultOperation = (
@@ -113,7 +118,7 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
     return !isMaskMoving ? (
       <Popover
-        content={<PopoverContent {...options} />}
+        content={<Content {...options} />}
         visible={true}
         placement={getCurrentStep()?.placement}>
         {wrapper}
@@ -131,5 +136,3 @@ const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     document.body
   );
 };
-
-export default OnBoarding;

@@ -16,3 +16,12 @@
 .mask-animation {
   transition: all 0.2s ease-in-out;
 }
+
+.onboarding-default-operation {
+  width: 100%;
+  display: flex;
+
+  .back {
+    margin-right: 12px;
+  }
+}

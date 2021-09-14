@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MASK_ANIMATION_TIME } from '../const';
-import './mask.scss';
 import classNames from 'classnames';
 import { getMaskStyle } from '../utils/get-mask-style';
 
@@ -18,7 +17,7 @@ interface MaskProps {
   visible?: boolean;
 }
 
-const Mask: React.FC<MaskProps> = (props) => {
+export const Mask: React.FC<MaskProps> = (props) => {
   const { element, renderMaskContent, visible = true } = props;
   const [style, setStyle] = useState<Record<string, any>>({});
   const [isAnimationMaskAllowed, setIsAnimationMaskAllowed] = useState<boolean>(false);
@@ -79,5 +78,3 @@ const Mask: React.FC<MaskProps> = (props) => {
     </div>
   );
 };
-
-export default Mask;

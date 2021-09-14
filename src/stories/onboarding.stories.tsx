@@ -1,9 +1,12 @@
 import React from 'react';
-import OnBoarding from './onboarding/onboarding';
-import './style.scss';
 import { Card } from 'antd';
+import { OnBoarding } from '../onboarding/onboarding';
+import { storiesOf } from '@storybook/react';
+import './style.css';
+import '../../assets/index.css';
+import 'antd/dist/antd.css';
 
-const App: React.FC = () => {
+export const OnBoardingPreview: React.FC = () => {
   return (
     <div className='App'>
       <div
@@ -72,4 +75,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+storiesOf('OnBoarding', module).add('OnBoarding', OnBoardingPreview);

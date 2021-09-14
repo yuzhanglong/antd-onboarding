@@ -1,0 +1,28 @@
+.mask {
+  border-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-style: solid;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.mask-not-visible {
+  border-color: rgba(0, 0, 0, 0);
+  z-index: -999;
+}
+
+.mask-animation {
+  transition: all 0.2s ease-in-out;
+}
+
+.onboarding-default-operation {
+  width: 100%;
+  display: flex;
+}
+.onboarding-default-operation .back {
+  margin-right: 12px;
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -7,7 +7,7 @@ export interface PopoverContentProps {
   content: React.ReactNode;
 }
 
-const PopoverContent: React.FC<PopoverContentProps> = (props) => {
+const Content: React.FC<PopoverContentProps> = (props) => {
   return (
     <div className={'onboarding-popover-wrapper'}>
       <div className={'onboarding-popover-content'}>
@@ -23,4 +23,4 @@ const PopoverContent: React.FC<PopoverContentProps> = (props) => {
   );
 };
 
-export default PopoverContent;
+export default Content;
