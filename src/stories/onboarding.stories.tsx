@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'antd';
 import { OnBoarding } from '../onboarding/onboarding';
 import { storiesOf } from '@storybook/react';
@@ -7,16 +7,18 @@ import '../../assets/index.css';
 import 'antd/dist/antd.css';
 
 export const OnBoardingPreview: React.FC = () => {
+  const [helloContentVisible, setHelloContentVisible] = useState<boolean>(false);
   return (
     <div className='App'>
       <div
         className='hello-1' id={'hello-1'}>
         Hello World
       </div>
-      <Card
+      <span
         className='hello-2' id={'hello-2'}>
         又是一个 Hello World~
-      </Card>
+        {helloContentVisible && <span>hellhellohellohellohellohellohellohellohellohellohellohellohellohello</span>}
+      </span>
       <Card
         className='hello-3'
         id={'hello-3'}>
@@ -45,6 +47,9 @@ export const OnBoardingPreview: React.FC = () => {
               },
               beforeForward: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
+                setTimeout(() => {
+                  setHelloContentVisible(true);
+                }, 1000)
               },
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
@@ -55,6 +60,11 @@ export const OnBoardingPreview: React.FC = () => {
                 );
               },
               placement: 'bottom'
+            },
+            {
+              selector: () => {
+                return document.getElementById('hello-2');
+              }
             },
             {
               selector: () => {
@@ -71,11 +81,6 @@ export const OnBoardingPreview: React.FC = () => {
               placement: 'right',
               selector: () => {
                 return document.getElementById('inlineFrameExample');
-              }
-            },
-            {
-              selector: () => {
-                return document.getElementById('hello-2');
               }
             }
           ]
