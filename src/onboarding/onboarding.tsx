@@ -54,8 +54,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   };
 
   // 重置 mask 状态
-  const resetMaskStatus = () => {
-    setIsMaskMoving(true);
+  const setMaskNotMoving = () => {
     setTimeout(() => {
       setIsMaskMoving(false);
     }, MASK_ANIMATION_TIME);
@@ -76,13 +75,13 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     if (currentStep === 0) {
       return;
     }
+    setIsMaskMoving(true);
 
     const { beforeBack = noop } = getCurrentStep();
     await beforeBack(currentStep);
-
-
     setCurrentStep(currentStep - 1);
-    resetMaskStatus();
+
+    setMaskNotMoving();
   };
 
   const forward = async () => {
@@ -93,13 +92,13 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
       return;
     }
 
+    setIsMaskMoving(true);
+
     const { beforeForward = noop } = getCurrentStep();
-
     await beforeForward(currentStep);
-
-
     setCurrentStep(currentStep + 1);
-    resetMaskStatus();
+
+    setMaskNotMoving();
   };
 
   const renderPopover = (wrapper: React.ReactNode) => {
@@ -136,7 +135,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     return !isMaskMoving ? (
       <Popover
         content={<Content {...options} />}
-        visible={true}
+        visible={!isMaskMoving}
         placement={getCurrentStep()?.placement}>
         {wrapper}
       </Popover>

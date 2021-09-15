@@ -1,6 +1,6 @@
 {
   "name": "antd-onboarding",
-  "version": "0.0.0-beta-4",
+  "version": "0.0.0-beta-5",
   "author": "yuzhanglong <yuzl1123@163.com>",
   "main": "lib/index.js",
   "module": "esm/index.js",
