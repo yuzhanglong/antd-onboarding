@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "jsx": "react-jsx",
+    "target": "ES5",
+    "jsx": "react",
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "pretty": true,
