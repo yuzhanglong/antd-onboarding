@@ -15,10 +15,19 @@ export enum OnBoardingStatus {
 export interface OnBoardingStepConfig {
   // 选择的元素
   selector: () => HTMLElement | null;
+
   // mask 的容器
   container?: () => HTMLElement | null;
+
   // tooltip 的位置
   placement?: TooltipPlacement;
+
   // 内容
   renderContent?: (currentStep: number) => React.ReactNode;
+
+  // 在下一步之前做些什么
+  beforeForward?: (currentStep: number) => void;
+
+  // 在上一步之前做些什么
+  beforeBack?: (currentStep: number) => void;
 }

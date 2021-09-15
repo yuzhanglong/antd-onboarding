@@ -5,20 +5,27 @@ import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { OnBoardingStatus, OnBoardingStepConfig } from '../types';
+import { isFunction, noop } from 'lodash';
 
 interface OnBoardingProps {
   // 初始化步骤
   initialStep?: number;
+
   // 步骤配置
   steps: OnBoardingStepConfig[];
+
   // 是否展示默认操作模块(两个按钮，上一步 + 下一步)
   useDefaultOperations?: boolean;
+
   // 是否展示遮罩
   isShowMask?: boolean;
+
+  // 在所有步骤结束时做些什么
+  onStepsEnd?: () => void;
 }
 
 export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
-  const { steps, initialStep, useDefaultOperations = true, isShowMask = false } = props;
+  const { steps, initialStep, useDefaultOperations = true, isShowMask = false, onStepsEnd = noop } = props;
 
   // 当前状态
   const [currentStatus, setCurrentStatus] = useState<OnBoardingStatus>(OnBoardingStatus.NOT_READY);
@@ -70,6 +77,10 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
       return;
     }
 
+    const { beforeBack = noop } = getCurrentStep();
+    beforeBack(currentStep);
+
+
     setCurrentStep(currentStep - 1);
     resetMaskStatus();
   };
@@ -77,9 +88,14 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   const forward = () => {
     // 如果是最后一步
     if (currentStep === steps.length - 1) {
+      onStepsEnd();
       setCurrentStatus(OnBoardingStatus.END);
       return;
     }
+
+    const { beforeForward = noop } = getCurrentStep();
+    beforeForward(currentStep);
+
 
     setCurrentStep(currentStep + 1);
     resetMaskStatus();

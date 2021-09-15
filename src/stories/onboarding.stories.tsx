@@ -34,11 +34,20 @@ export const OnBoardingPreview: React.FC = () => {
       <OnBoarding
         isShowMask={true}
         initialStep={0}
+        onStepsEnd={() => {
+          console.log('end!!');
+        }}
         steps={
           [
             {
               selector: () => {
                 return document.getElementById('hello-1');
+              },
+              beforeForward: (currentStep) => {
+                console.log(`${currentStep} beforeForward!`);
+              },
+              beforeBack: (currentStep) => {
+                console.log(`${currentStep} beforeForward!`);
               },
               renderContent: (currentStep) => {
                 return (
