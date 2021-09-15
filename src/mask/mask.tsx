@@ -52,22 +52,9 @@ export const Mask: React.FC<MaskProps> = (props) => {
       onWindowResize();
     };
     window.addEventListener('resize', cb);
-    const MutationObserver = window.MutationObserver;
-
-    // 在 dom 发生变动时也需要调整
-    const m = new MutationObserver(() => {
-      checkStyle();
-    });
-
-    m.observe(document, {
-      attributes: true,
-      childList: true,
-      subtree: true
-    });
 
     return () => {
       window.removeEventListener('resize', cb);
-      m.disconnect();
     };
   }, [element]);
 

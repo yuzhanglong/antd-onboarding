@@ -5,7 +5,7 @@ import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { OnBoardingStatus, OnBoardingStepConfig } from '../types';
-import { isFunction, noop } from 'lodash';
+import { noop } from 'lodash';
 
 interface OnBoardingProps {
   // 初始化步骤
@@ -71,30 +71,31 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     }
   };
 
-  const back = () => {
+  const back = async () => {
     // 如果是第一步，我们不应该往前走
     if (currentStep === 0) {
       return;
     }
 
     const { beforeBack = noop } = getCurrentStep();
-    beforeBack(currentStep);
+    await beforeBack(currentStep);
 
 
     setCurrentStep(currentStep - 1);
     resetMaskStatus();
   };
 
-  const forward = () => {
+  const forward = async () => {
     // 如果是最后一步
     if (currentStep === steps.length - 1) {
-      onStepsEnd();
+      await onStepsEnd();
       setCurrentStatus(OnBoardingStatus.END);
       return;
     }
 
     const { beforeForward = noop } = getCurrentStep();
-    beforeForward(currentStep);
+
+    await beforeForward(currentStep);
 
 
     setCurrentStep(currentStep + 1);

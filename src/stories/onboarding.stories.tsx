@@ -45,11 +45,14 @@ export const OnBoardingPreview: React.FC = () => {
               selector: () => {
                 return document.getElementById('hello-1');
               },
-              beforeForward: (currentStep) => {
+              beforeForward: async (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
-                setTimeout(() => {
-                  setHelloContentVisible(true);
-                }, 1000)
+                await new Promise((resolve) => {
+                  setTimeout(() => {
+                    setHelloContentVisible(true);
+                    resolve(true)
+                  }, 1000)
+                })
               },
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
