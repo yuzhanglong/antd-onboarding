@@ -20,9 +20,15 @@
 .onboarding-default-operation {
   width: 100%;
   display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 .onboarding-default-operation .back {
   margin-right: 12px;
+  width: 80px;
+}
+.onboarding-default-operation .forward {
+  width: 80px;
 }
 
 /*# sourceMappingURL=index.css.map */

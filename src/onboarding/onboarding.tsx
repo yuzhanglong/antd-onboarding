@@ -116,13 +116,13 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
         <Button
           className={'back'}
           onClick={() => back()}>
-          Back
+          上一步
         </Button>
         <Button
           className={'forward'}
           type={'primary'}
           onClick={() => forward()}>
-          Forward
+          下一步
         </Button>
       </div>
     );

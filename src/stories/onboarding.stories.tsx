@@ -50,16 +50,22 @@ export const OnBoardingPreview: React.FC = () => {
                 await new Promise((resolve) => {
                   setTimeout(() => {
                     setHelloContentVisible(true);
-                    resolve(true)
-                  }, 1000)
-                })
+                    resolve(true);
+                  }, 1000);
+                });
               },
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
               },
-              renderContent: (currentStep) => {
+              renderContent: () => {
                 return (
-                  <div>{currentStep}</div>
+                  <div>
+                    <div>
+                      回忆就像漩涡,
+                      它将我拉走. 时间的钟响起,
+                      我不该逗留
+                    </div>
+                  </div>
                 );
               },
               placement: 'bottom'
