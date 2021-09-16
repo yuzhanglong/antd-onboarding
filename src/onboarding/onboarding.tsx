@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
-import { OnBoardingStatus, OnBoardingStepConfig } from '../types';
+import { MaskStyleCheckObserver, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
 
 interface OnBoardingProps {
@@ -22,10 +22,20 @@ interface OnBoardingProps {
 
   // 在所有步骤结束时做些什么
   onStepsEnd?: () => void;
+
+  // 更新 style 的 checker
+  styleCheckObserver?: MaskStyleCheckObserver;
 }
 
 export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
-  const { steps, initialStep, useDefaultOperations = true, isShowMask = false, onStepsEnd = noop } = props;
+  const {
+    steps,
+    initialStep,
+    useDefaultOperations = true,
+    isShowMask = false,
+    onStepsEnd = noop,
+    styleCheckObserver
+  } = props;
 
   // 当前状态
   const [currentStatus, setCurrentStatus] = useState<OnBoardingStatus>(OnBoardingStatus.NOT_READY);
@@ -145,6 +155,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   return ReactDOM.createPortal(
     currentStatus === OnBoardingStatus.READY ? (
       <Mask
+        styleCheckObserver={styleCheckObserver}
         visible={isShowMask}
         element={getCurrentTargetElement() || document.body}
         renderMaskContent={(wrapper) => renderPopover(wrapper)} />

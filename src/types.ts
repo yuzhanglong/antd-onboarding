@@ -31,3 +31,19 @@ export interface OnBoardingStepConfig {
   // 在上一步之前做些什么
   beforeBack?: (currentStep: number) => void;
 }
+
+export interface OnBoardingLocale {
+  locale: string;
+  // 上一步
+  previous: string;
+  // 下一步
+  next: string;
+}
+
+export interface OnMaskStyleCheckObserverResponse {
+  observe: () => void,
+  destroy: () => void
+}
+
+
+export type MaskStyleCheckObserver = (element: HTMLElement, check: () => void) => OnMaskStyleCheckObserverResponse

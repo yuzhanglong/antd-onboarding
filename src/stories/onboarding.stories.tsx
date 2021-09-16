@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 
 export const OnBoardingPreview: React.FC = () => {
   const [helloContentVisible, setHelloContentVisible] = useState<boolean>(false);
+
   return (
     <div className='App'>
       <div
@@ -34,6 +35,42 @@ export const OnBoardingPreview: React.FC = () => {
       </iframe>
 
       <OnBoarding
+        styleCheckObserver={(element, check) => {
+          let timer = null;
+
+          const onWindowResize = () => {
+            if (timer) {
+              window.cancelAnimationFrame(timer);
+            }
+
+            timer = window.requestAnimationFrame(() => {
+              console.log('check!');
+              check();
+            });
+          };
+
+          const m = new MutationObserver((m) => {
+            console.log(m);
+          });
+
+          m.observe(element, {
+            childList: true,
+            subtree: true,
+            attributes: true
+          });
+
+
+          return {
+            observe: () => {
+              window.addEventListener('resize', onWindowResize);
+
+            },
+            destroy: () => {
+              window.removeEventListener('resize', onWindowResize);
+              m.disconnect();
+            }
+          };
+        }}
         isShowMask={true}
         initialStep={0}
         onStepsEnd={() => {
@@ -47,12 +84,15 @@ export const OnBoardingPreview: React.FC = () => {
               },
               beforeForward: async (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
-                await new Promise((resolve) => {
-                  setTimeout(() => {
-                    setHelloContentVisible(true);
-                    resolve(true);
-                  }, 1000);
-                });
+                setTimeout(() => {
+                  setHelloContentVisible(true);
+                }, 1000);
+                // await new Promise((resolve) => {
+                //   setTimeout(() => {
+                //
+                //     resolve(true);
+                //   }, 1000);
+                // });
               },
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);

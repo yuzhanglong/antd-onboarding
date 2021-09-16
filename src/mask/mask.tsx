@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MASK_ANIMATION_TIME } from '../const';
 import classNames from 'classnames';
 import { getMaskStyle } from '../utils/get-mask-style';
+import { resizeObserver } from '../utils/resize-observer';
+import { MaskStyleCheckObserver } from '../types';
 
 interface MaskProps {
   // 基准元素
@@ -15,24 +17,15 @@ interface MaskProps {
 
   // mask 是否可见，如果这个值为 false，那么它是透明的，底部的内容也是可操作的
   visible?: boolean;
+
+  // 更新样式的监听器，如果没有则默认监听 resize, 例如用户在改变窗口大小时就可以做到实时改变
+  styleCheckObserver?: MaskStyleCheckObserver;
 }
 
 export const Mask: React.FC<MaskProps> = (props) => {
-  const { element, renderMaskContent, visible = true } = props;
+  const { element, renderMaskContent, visible = true, styleCheckObserver } = props;
   const [style, setStyle] = useState<Record<string, any>>({});
   const [isAnimationMaskAllowed, setIsAnimationMaskAllowed] = useState<boolean>(false);
-
-  const timerRef = useRef<number | null>(null);
-
-  const onWindowResize = () => {
-    if (timerRef.current) {
-      window.cancelAnimationFrame(timerRef.current);
-    }
-
-    timerRef.current = window.requestAnimationFrame(() => {
-      checkStyle();
-    });
-  };
 
   const checkStyle = () => {
     element.scrollIntoView({
@@ -48,13 +41,12 @@ export const Mask: React.FC<MaskProps> = (props) => {
   }, [element]);
 
   useEffect(() => {
-    const cb = () => {
-      onWindowResize();
-    };
-    window.addEventListener('resize', cb);
+    const observer: MaskStyleCheckObserver = styleCheckObserver || resizeObserver;
+    const o = observer(element, checkStyle);
+    o.observe();
 
     return () => {
-      window.removeEventListener('resize', cb);
+      o.destroy();
     };
   }, [element]);
 
