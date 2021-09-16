@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
-import { MaskStyleCheckObserver, OnBoardingStatus, OnBoardingStepConfig } from '../types';
+import { MaskStyleCheckObserver, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
+import { locale as defaultLocale } from '../locale/en-US';
 
 interface OnBoardingProps {
   // 初始化步骤
@@ -25,6 +26,9 @@ interface OnBoardingProps {
 
   // 更新 style 的 checker
   styleCheckObserver?: MaskStyleCheckObserver;
+
+  // 国际化
+  locale?: OnBoardingLocale;
 }
 
 export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
@@ -34,7 +38,8 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     useDefaultOperations = true,
     isShowMask = false,
     onStepsEnd = noop,
-    styleCheckObserver
+    styleCheckObserver,
+    locale = defaultLocale
   } = props;
 
   // 当前状态
@@ -127,14 +132,14 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
           currentStep !== 0 && <Button
             className={'back'}
             onClick={() => back()}>
-            上一步
+            {locale.previous}
           </Button>
         }
         <Button
           className={'forward'}
           type={'primary'}
           onClick={() => forward()}>
-          {currentStep === steps.length - 1 ? '我知道了' : '下一步'}
+          {currentStep === steps.length - 1 ? locale.gotIt : locale.next}
         </Button>
       </div>
     );

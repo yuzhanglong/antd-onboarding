@@ -38,6 +38,8 @@ export interface OnBoardingLocale {
   previous: string;
   // 下一步
   next: string;
+  // 我知道了
+  gotIt: string;
 }
 
 export interface OnMaskStyleCheckObserverResponse {
