@@ -6,7 +6,7 @@ import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { MaskStyleCheckObserver, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
-import { locale as defaultLocale } from '../locale/en-US';
+import enUS from 'locale/en-US';
 
 interface OnBoardingProps {
   // 初始化步骤
@@ -39,7 +39,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     isShowMask = false,
     onStepsEnd = noop,
     styleCheckObserver,
-    locale = defaultLocale
+    locale = enUS
   } = props;
 
   // 当前状态

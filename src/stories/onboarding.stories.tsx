@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
-import { locale } from '../locale/zh-CN';
+import zhCN from '../locale/zh-CN';
 
 export const OnBoardingPreview: React.FC = () => {
   const [helloContentVisible, setHelloContentVisible] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export const OnBoardingPreview: React.FC = () => {
       </iframe>
 
       <OnBoarding
-        locale={locale}
+        locale={zhCN}
         styleCheckObserver={(element, check) => {
           let timer = null;
 
