@@ -123,16 +123,18 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
     const defaultOperation = (
       <div className={'onboarding-default-operation'}>
-        <Button
-          className={'back'}
-          onClick={() => back()}>
-          上一步
-        </Button>
+        {
+          currentStep !== 0 && <Button
+            className={'back'}
+            onClick={() => back()}>
+            上一步
+          </Button>
+        }
         <Button
           className={'forward'}
           type={'primary'}
           onClick={() => forward()}>
-          下一步
+          {currentStep === steps.length - 1 ? '我知道了' : '下一步'}
         </Button>
       </div>
     );

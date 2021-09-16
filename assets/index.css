@@ -25,10 +25,10 @@
 }
 .onboarding-default-operation .back {
   margin-right: 12px;
-  width: 80px;
+  min-width: 80px;
 }
 .onboarding-default-operation .forward {
-  width: 80px;
+  min-width: 80px;
 }
 
 /*# sourceMappingURL=index.css.map */
