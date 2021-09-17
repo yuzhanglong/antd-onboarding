@@ -48,4 +48,4 @@ export interface OnMaskStyleCheckObserverResponse {
 }
 
 
-export type MaskStyleCheckObserver = (element: HTMLElement, check: () => void) => OnMaskStyleCheckObserverResponse
+export type MaskStyleChecker = (element: HTMLElement, check: () => void) => OnMaskStyleCheckObserverResponse

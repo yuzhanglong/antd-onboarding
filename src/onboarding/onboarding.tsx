@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
-import { MaskStyleCheckObserver, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
+import { MaskStyleChecker, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
 import enUS from '../locale/en-US';
 
@@ -25,7 +25,7 @@ interface OnBoardingProps {
   onStepsEnd?: () => void;
 
   // 更新 style 的 checker
-  styleCheckObserver?: MaskStyleCheckObserver;
+  styleCheckObserver?: MaskStyleChecker;
 
   // 国际化
   locale?: OnBoardingLocale;
@@ -162,7 +162,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   return ReactDOM.createPortal(
     currentStatus === OnBoardingStatus.READY ? (
       <Mask
-        styleCheckObserver={styleCheckObserver}
+        styleChecker={styleCheckObserver}
         visible={isShowMask}
         element={getCurrentTargetElement() || document.body}
         renderMaskContent={(wrapper) => renderPopover(wrapper)} />

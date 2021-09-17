@@ -1,6 +1,6 @@
-import { MaskStyleCheckObserver } from '../types';
+import { MaskStyleChecker } from '../../types';
 
-export const resizeObserver: MaskStyleCheckObserver = (element, check) => {
+export const resizeObserverChecker: MaskStyleChecker = (element, check) => {
   let timer = null;
 
   const onWindowResize = () => {

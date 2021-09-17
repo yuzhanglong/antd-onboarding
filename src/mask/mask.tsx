@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { MASK_ANIMATION_TIME } from '../const';
 import classNames from 'classnames';
 import { getMaskStyle } from '../utils/get-mask-style';
-import { resizeObserver } from '../utils/resize-observer';
-import { MaskStyleCheckObserver } from '../types';
+import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
+import { MaskStyleChecker } from '../types';
 
 interface MaskProps {
   // 基准元素
@@ -18,12 +18,12 @@ interface MaskProps {
   // mask 是否可见，如果这个值为 false，那么它是透明的，底部的内容也是可操作的
   visible?: boolean;
 
-  // 更新样式的监听器，如果没有则默认监听 resize, 例如用户在改变窗口大小时就可以做到实时改变
-  styleCheckObserver?: MaskStyleCheckObserver;
+  // 更新样式的检测器，如果没有则默认监听 resize, 例如用户在改变窗口大小时就可以做到实时改变
+  styleChecker?: MaskStyleChecker;
 }
 
 export const Mask: React.FC<MaskProps> = (props) => {
-  const { element, renderMaskContent, visible = true, styleCheckObserver } = props;
+  const { element, renderMaskContent, visible = true, styleChecker } = props;
   const [style, setStyle] = useState<Record<string, any>>({});
   const [isAnimationMaskAllowed, setIsAnimationMaskAllowed] = useState<boolean>(false);
 
@@ -41,7 +41,7 @@ export const Mask: React.FC<MaskProps> = (props) => {
   }, [element]);
 
   useEffect(() => {
-    const observer: MaskStyleCheckObserver = styleCheckObserver || resizeObserver;
+    const observer: MaskStyleChecker = styleChecker || resizeObserverChecker;
     const o = observer(element, checkStyle);
     o.observe();
 

@@ -6,6 +6,7 @@ import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
 import zhCN from '../locale/zh-CN';
+import { animationFrameChecker } from '../utils/mask-checker/animation-frame';
 
 export const OnBoardingPreview: React.FC = () => {
   const [helloContentVisible, setHelloContentVisible] = useState<boolean>(false);
@@ -37,42 +38,7 @@ export const OnBoardingPreview: React.FC = () => {
 
       <OnBoarding
         locale={zhCN}
-        styleCheckObserver={(element, check) => {
-          let timer = null;
-
-          const onWindowResize = () => {
-            if (timer) {
-              window.cancelAnimationFrame(timer);
-            }
-
-            timer = window.requestAnimationFrame(() => {
-              console.log('check!');
-              check();
-            });
-          };
-
-          const m = new MutationObserver((m) => {
-            console.log(m);
-          });
-
-          m.observe(element, {
-            childList: true,
-            subtree: true,
-            attributes: true
-          });
-
-
-          return {
-            observe: () => {
-              window.addEventListener('resize', onWindowResize);
-
-            },
-            destroy: () => {
-              window.removeEventListener('resize', onWindowResize);
-              m.disconnect();
-            }
-          };
-        }}
+        styleCheckObserver={animationFrameChecker}
         isShowMask={true}
         initialStep={0}
         onStepsEnd={() => {
