@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
-import { MASK_ANIMATION_TIME } from '../const';
+import { KEYBOARD_NAMES, MASK_ANIMATION_TIME } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { MaskStyleChecker, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
@@ -29,6 +29,9 @@ interface OnBoardingProps {
 
   // 国际化
   locale?: OnBoardingLocale;
+
+  // 支持键盘前进后退
+  supportKeyboard?: boolean;
 }
 
 export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
@@ -39,7 +42,8 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     isShowMask = false,
     onStepsEnd = noop,
     styleCheckObserver,
-    locale = enUS
+    locale = enUS,
+    supportKeyboard
   } = props;
 
   // 当前状态
@@ -59,10 +63,16 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     return steps[currentStep]?.selector();
   }, [currentStep]);
 
-  useEffect(() => {
-    initCurrentSelectedElement();
-  }, [renderTick]);
 
+  const initCurrentSelectedElement = () => {
+    const currentElement = getCurrentTargetElement();
+
+    if (!currentElement) {
+      setRenderTick(renderTick + 1);
+    } else {
+      setCurrentStatus(OnBoardingStatus.READY);
+    }
+  };
   // 获取当前步骤
   const getCurrentStep = () => {
     return steps[currentStep];
@@ -75,15 +85,6 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     }, MASK_ANIMATION_TIME);
   };
 
-  const initCurrentSelectedElement = () => {
-    const currentElement = getCurrentTargetElement();
-
-    if (!currentElement) {
-      setRenderTick(renderTick + 1);
-    } else {
-      setCurrentStatus(OnBoardingStatus.READY);
-    }
-  };
 
   const back = async () => {
     // 如果是第一步，我们不应该往前走
@@ -112,9 +113,38 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     const { beforeForward = noop } = getCurrentStep();
     await beforeForward(currentStep);
     setCurrentStep(currentStep + 1);
-
     setMaskNotMoving();
   };
+
+  useEffect(() => {
+    initCurrentSelectedElement();
+  }, [renderTick]);
+
+
+  useEffect(() => {
+    const cb = async (event: KeyboardEvent) => {
+      if (currentStatus === OnBoardingStatus.READY) {
+        // 阻止键盘方向键导致界面滚动
+        event.preventDefault();
+        if (event.key === KEYBOARD_NAMES.ARROW_RIGHT) {
+          await forward();
+        } else if (event.key === KEYBOARD_NAMES.ARROW_LEFT) {
+          await back();
+        }
+      }
+    };
+
+    if (supportKeyboard) {
+      window.addEventListener('keydown', cb);
+    }
+
+
+    return () => {
+      if (supportKeyboard) {
+        window.removeEventListener('keydown', cb);
+      }
+    };
+  }, [currentStatus, currentStep]);
 
   const renderPopover = (wrapper: React.ReactNode) => {
     const c = getCurrentStep();

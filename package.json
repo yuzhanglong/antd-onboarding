@@ -1,6 +1,6 @@
 {
   "name": "antd-onboarding",
-  "version": "0.0.0-beta-14",
+  "version": "0.0.0-beta-17",
   "author": "yuzhanglong <yuzl1123@163.com>",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -29,7 +29,8 @@
     "build:assets": "sass assets/index.scss assets/index.css",
     "build": "run-p build:*",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release": "yarn build && npm publish"
   },
   "dependencies": {
     "antd": "^4.16.13",

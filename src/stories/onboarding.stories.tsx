@@ -38,7 +38,6 @@ export const OnBoardingPreview: React.FC = () => {
 
       <OnBoarding
         locale={zhCN}
-        styleCheckObserver={animationFrameChecker}
         isShowMask={true}
         initialStep={0}
         onStepsEnd={() => {
@@ -52,15 +51,6 @@ export const OnBoardingPreview: React.FC = () => {
               },
               beforeForward: async (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
-                setTimeout(() => {
-                  setHelloContentVisible(true);
-                }, 1000);
-                // await new Promise((resolve) => {
-                //   setTimeout(() => {
-                //
-                //     resolve(true);
-                //   }, 1000);
-                // });
               },
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
