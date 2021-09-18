@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
-import { KEYBOARD_NAMES, MASK_ANIMATION_TIME } from '../const';
+import { KEYBOARD_NAMES } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { MaskStyleChecker, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { noop } from 'lodash';
@@ -43,7 +43,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     onStepsEnd = noop,
     styleCheckObserver,
     locale = enUS,
-    supportKeyboard
+    supportKeyboard = true
   } = props;
 
   // 当前状态
@@ -78,26 +78,15 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     return steps[currentStep];
   };
 
-  // 重置 mask 状态
-  const setMaskNotMoving = () => {
-    setTimeout(() => {
-      setIsMaskMoving(false);
-    }, MASK_ANIMATION_TIME);
-  };
-
-
   const back = async () => {
     // 如果是第一步，我们不应该往前走
     if (currentStep === 0) {
       return;
     }
-    setIsMaskMoving(true);
 
     const { beforeBack = noop } = getCurrentStep();
     await beforeBack(currentStep);
     setCurrentStep(currentStep - 1);
-
-    setMaskNotMoving();
   };
 
   const forward = async () => {
@@ -108,12 +97,9 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
       return;
     }
 
-    setIsMaskMoving(true);
-
     const { beforeForward = noop } = getCurrentStep();
     await beforeForward(currentStep);
     setCurrentStep(currentStep + 1);
-    setMaskNotMoving();
   };
 
   useEffect(() => {
@@ -182,7 +168,7 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     return !isMaskMoving ? (
       <Popover
         content={<Content {...options} />}
-        visible={!isMaskMoving}
+        visible={true}
         placement={getCurrentStep()?.placement}>
         {wrapper}
       </Popover>
@@ -192,6 +178,12 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   return ReactDOM.createPortal(
     currentStatus === OnBoardingStatus.READY ? (
       <Mask
+        onAnimationStart={() => {
+          setIsMaskMoving(true);
+        }}
+        onAnimationEnd={() => {
+          setIsMaskMoving(false);
+        }}
         styleChecker={styleCheckObserver}
         visible={isShowMask}
         element={getCurrentTargetElement() || document.body}

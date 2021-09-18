@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { getMaskStyle } from '../utils/get-mask-style';
 import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
 import { MaskStyleChecker } from '../types';
+import { noop } from 'lodash';
 
 interface MaskProps {
   // 基准元素
@@ -20,12 +21,26 @@ interface MaskProps {
 
   // 更新样式的检测器，如果没有则默认监听 resize, 例如用户在改变窗口大小时就可以做到实时改变
   styleChecker?: MaskStyleChecker;
+
+  // 当动画开始时做些什么
+  // 在 mask 的基准元素切换时，会有一个过渡动画，我们有必要在过渡动画进行的时候隐藏外面的 tooltip
+  // 以免引起不好的视觉效果
+  onAnimationStart?: () => void;
+
+  // 当动画结束时做些什么
+  onAnimationEnd?: () => void;
 }
 
 export const Mask: React.FC<MaskProps> = (props) => {
-  const { element, renderMaskContent, visible = true, styleChecker } = props;
+  const {
+    element,
+    renderMaskContent,
+    visible = true,
+    styleChecker,
+    onAnimationEnd = noop,
+    onAnimationStart = noop
+  } = props;
   const [style, setStyle] = useState<Record<string, any>>({});
-  const [isAnimationMaskAllowed, setIsAnimationMaskAllowed] = useState<boolean>(false);
 
   const checkStyle = () => {
     element.scrollIntoView({
@@ -37,10 +52,17 @@ export const Mask: React.FC<MaskProps> = (props) => {
   };
 
   useEffect(() => {
+    if (!element) {
+      return;
+    }
+
     checkStyle();
   }, [element]);
 
   useEffect(() => {
+    if (!element) {
+      return;
+    }
     const observer: MaskStyleChecker = styleChecker || resizeObserverChecker;
     const o = observer(element, checkStyle);
     o.observe();
@@ -51,14 +73,15 @@ export const Mask: React.FC<MaskProps> = (props) => {
   }, [element]);
 
   useEffect(() => {
+    onAnimationStart();
     setTimeout(() => {
-      setIsAnimationMaskAllowed(true);
+      onAnimationEnd();
     }, MASK_ANIMATION_TIME);
   }, [element]);
 
   const maskClasses = classNames(
     'mask',
-    isAnimationMaskAllowed && 'mask-animation',
+    'mask-animation',
     !visible && 'mask-not-visible'
   );
 
