@@ -40,6 +40,7 @@ export const Mask: React.FC<MaskProps> = (props) => {
     onAnimationEnd = noop,
     onAnimationStart = noop
   } = props;
+
   const [style, setStyle] = useState<Record<string, any>>({});
 
   const checkStyle = () => {
