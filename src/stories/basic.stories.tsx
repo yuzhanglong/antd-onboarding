@@ -6,11 +6,8 @@ import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
 import zhCN from '../locale/zh-CN';
-import { animationFrameChecker } from '../utils/mask-checker/animation-frame';
 
-export const OnBoardingPreview: React.FC = () => {
-  const [helloContentVisible, setHelloContentVisible] = useState<boolean>(false);
-
+export const Basic: React.FC = () => {
   return (
     <div className='App'>
       <div
@@ -20,7 +17,6 @@ export const OnBoardingPreview: React.FC = () => {
       <span
         className='hello-2' id={'hello-2'}>
         又是一个 Hello World~
-        {helloContentVisible && <span>hellhellohellohellohellohellohellohellohellohellohellohellohellohello</span>}
       </span>
       <Card
         className='hello-3'
@@ -55,9 +51,10 @@ export const OnBoardingPreview: React.FC = () => {
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
               },
-              renderContent: () => {
+              renderContent: (currentStep) => {
                 return (
                   <div>
+                    {currentStep}
                     <div>
                       回忆就像漩涡,
                       它将我拉走. 时间的钟响起,
@@ -96,4 +93,4 @@ export const OnBoardingPreview: React.FC = () => {
   );
 };
 
-storiesOf('OnBoarding', module).add('OnBoarding', OnBoardingPreview);
+storiesOf('OnBoarding', module).add('Basic Usage', Basic);

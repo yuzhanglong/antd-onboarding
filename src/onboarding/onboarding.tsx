@@ -1,16 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { KEYBOARD_NAMES } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { MaskStyleChecker, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import enUS from '../locale/en-US';
 
-interface OnBoardingProps {
+export interface OnBoardingProps {
   // 初始化步骤
   initialStep?: number;
+
+  // 当前步骤
+  step?: number;
 
   // 步骤配置
   steps: OnBoardingStepConfig[];
@@ -25,25 +28,35 @@ interface OnBoardingProps {
   onStepsEnd?: () => void;
 
   // 更新 style 的 checker
-  styleCheckObserver?: MaskStyleChecker;
+  styleChecker?: MaskStyleChecker;
 
   // 国际化
   locale?: OnBoardingLocale;
 
   // 支持键盘前进后退
   supportKeyboard?: boolean;
+
+  // 挂载节点，默认为 document.body
+  mountedElement?: HTMLElement;
 }
 
-export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
+export interface OnBoardingRef {
+  forward: () => void;
+  back: () => void;
+}
+
+export const OnBoarding = forwardRef<OnBoardingRef, OnBoardingProps>((props, ref) => {
   const {
+    step,
     steps,
     initialStep,
     useDefaultOperations = true,
     isShowMask = false,
     onStepsEnd = noop,
-    styleCheckObserver,
+    styleChecker,
     locale = enUS,
-    supportKeyboard = true
+    supportKeyboard = true,
+    mountedElement = document.body
   } = props;
 
   // 当前状态
@@ -61,11 +74,14 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
   // 选择配置的元素
   const getCurrentTargetElement = useCallback(() => {
     return steps[currentStep]?.selector();
-  }, [currentStep]);
-
+  }, [steps, currentStep]);
 
   const initCurrentSelectedElement = () => {
     const currentElement = getCurrentTargetElement();
+
+    if (!steps.length) {
+      return;
+    }
 
     if (!currentElement) {
       setRenderTick(renderTick + 1);
@@ -104,8 +120,14 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
 
   useEffect(() => {
     initCurrentSelectedElement();
-  }, [renderTick]);
+  }, [steps, renderTick]);
 
+  useEffect(() => {
+    if (!isNil(step)) {
+      // 不触发相关生命周期
+      setCurrentStep(step);
+    }
+  }, [step]);
 
   useEffect(() => {
     const cb = async (event: KeyboardEvent) => {
@@ -175,6 +197,19 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
     ) : wrapper;
   };
 
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        forward: async () => {
+          await forward();
+        },
+        back: async () => {
+          await back();
+        }
+      };
+    }, [currentStep]);
+
   return ReactDOM.createPortal(
     currentStatus === OnBoardingStatus.READY ? (
       <Mask
@@ -184,11 +219,11 @@ export const OnBoarding: React.FC<OnBoardingProps> = (props) => {
         onAnimationEnd={() => {
           setIsMaskMoving(false);
         }}
-        styleChecker={styleCheckObserver}
+        styleChecker={styleChecker}
         visible={isShowMask}
-        element={getCurrentTargetElement() || document.body}
+        element={getCurrentTargetElement() || mountedElement}
         renderMaskContent={(wrapper) => renderPopover(wrapper)} />
-    ) : null,
-    document.body
+    ) : <Fragment />,
+    mountedElement
   );
-};
+});
