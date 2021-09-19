@@ -1,10 +1,29 @@
 import { ReactElement } from 'react';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import { act, render, RenderResult } from '@testing-library/react';
 
 export const createTestContainer = (cmp: ReactElement) => {
-  let container: ReactTestRenderer = null;
+  const el = document.createElement('div');
+  document.body.appendChild(el);
+
+  let container: RenderResult = null;
   act(() => {
-    container = create(cmp);
+    container = render(cmp, {
+      container: el
+    });
+  });
+
+  return container;
+};
+
+export const createTestContainerAsync = async (cmp: ReactElement) => {
+  const el = document.createElement('div');
+  document.body.appendChild(el);
+
+  let container: RenderResult = null;
+  await act(async () => {
+    container = render(cmp, {
+      container: el
+    });
   });
 
   return container;

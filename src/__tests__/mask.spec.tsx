@@ -1,9 +1,9 @@
 import React from 'react';
 import { Mask } from '../mask/mask';
 import { noop } from 'lodash';
-import { act } from 'react-test-renderer';
 import { createTestContainer } from '../utils/create-test-container';
 import { MASK_ANIMATION_TIME } from '../const';
+import { act } from '@testing-library/react';
 
 describe('引导组件遮罩层相关测试', () => {
   const testBaseElement = document.createElement('div');
@@ -46,7 +46,6 @@ describe('引导组件遮罩层相关测试', () => {
     expect(destroyCallback).toBeCalledTimes(1);
   });
 
-
   test('基准元素为空, mask 不会去计算样式或者监听基准元素, 仅渲染一个无样式的空 div', () => {
     const checkCallback = jest.fn();
     const Wrapper = () => {
@@ -64,12 +63,12 @@ describe('引导组件遮罩层相关测试', () => {
 
 
     expect(checkCallback).toBeCalledTimes(0);
-    expect(container.toJSON()).toMatchSnapshot();
+    expect(container.baseElement).toMatchSnapshot();
   });
 
   test('配置了基准元素, mask 样式应该被计算后写入 dom', async () => {
     const container = createTestContainer(<Mask element={testBaseElement} />);
-    expect(container.toJSON()).toMatchSnapshot();
+    expect(container.baseElement).toMatchSnapshot();
   });
 
   test('测试遮罩层可见能力, 默认为 true', () => {
@@ -80,17 +79,17 @@ describe('引导组件遮罩层相关测试', () => {
     );
 
 
-    expect(container.toJSON()).toMatchSnapshot();
+    expect(container.baseElement).toMatchSnapshot();
 
     act(() => {
-      container.update(
+      container.rerender(
         <Mask
           element={testBaseElement}
           visible={true} />
       );
     });
 
-    expect(container.toJSON()).toMatchSnapshot();
+    expect(container.baseElement).toMatchSnapshot();
   });
 
   test('测试 mask 的两个生命周期 onAnimationStart / onAnimationEnd', () => {
@@ -115,7 +114,7 @@ describe('引导组件遮罩层相关测试', () => {
     // 在 element 更新后重复上述生命周期
     const el2 = document.createElement('div');
     act(() => {
-      container.update(
+      container.rerender(
         <Mask
           onAnimationStart={animationStartCallback}
           onAnimationEnd={animationEndCallback}
@@ -143,6 +142,6 @@ describe('引导组件遮罩层相关测试', () => {
           );
         }} />
     );
-    expect(container.toJSON()).toMatchSnapshot();
+    expect(container.baseElement).toMatchSnapshot();
   });
 });

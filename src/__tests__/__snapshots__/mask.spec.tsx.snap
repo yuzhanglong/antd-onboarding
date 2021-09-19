@@ -1,85 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`引导组件遮罩层相关测试 基准元素为空, mask 不会去计算样式或者监听基准元素, 仅渲染一个无样式的空 div 1`] = `
-<div
-  className="mask mask-animation"
-  style={Object {}}
-/>
+<div>
+  <div
+    class="mask mask-animation"
+  />
+</div>
 `;
 
 exports[`引导组件遮罩层相关测试 测试 mask 子组件的写入 1`] = `
-<div
-  className="mask mask-animation"
-  style={
-    Object {
-      "borderBottomWidth": 0,
-      "borderLeftWidth": 1000,
-      "borderRightWidth": 0,
-      "borderTopWidth": 1000,
-      "height": 1000,
-      "width": 1000,
-    }
-  }
->
-  <div>
-    <div
-      className="mask-content"
-      style={
-        Object {
-          "height": "100%",
-          "width": "100%",
-        }
-      }
-    />
-    hello world!
+<div>
+  <div
+    class="mask mask-animation"
+    style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 800px; border-right-width: 800px;"
+  >
+    <div>
+      <div
+        class="mask-content"
+        style="width: 100%; height: 100%;"
+      />
+      hello world!
+    </div>
   </div>
 </div>
 `;
 
 exports[`引导组件遮罩层相关测试 测试遮罩层可见能力, 默认为 true 1`] = `
-<div
-  className="mask mask-animation mask-not-visible"
-  style={
-    Object {
-      "borderBottomWidth": 0,
-      "borderLeftWidth": 1000,
-      "borderRightWidth": 0,
-      "borderTopWidth": 1000,
-      "height": 1000,
-      "width": 1000,
-    }
-  }
-/>
+<div>
+  <div
+    class="mask mask-animation mask-not-visible"
+    style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 800px; border-right-width: 800px;"
+  />
+</div>
 `;
 
 exports[`引导组件遮罩层相关测试 测试遮罩层可见能力, 默认为 true 2`] = `
-<div
-  className="mask mask-animation"
-  style={
-    Object {
-      "borderBottomWidth": 0,
-      "borderLeftWidth": 1000,
-      "borderRightWidth": 0,
-      "borderTopWidth": 1000,
-      "height": 1000,
-      "width": 1000,
-    }
-  }
-/>
+<div>
+  <div
+    class="mask mask-animation"
+    style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 800px; border-right-width: 800px;"
+  />
+</div>
 `;
 
 exports[`引导组件遮罩层相关测试 配置了基准元素, mask 样式应该被计算后写入 dom 1`] = `
-<div
-  className="mask mask-animation"
-  style={
-    Object {
-      "borderBottomWidth": 0,
-      "borderLeftWidth": 1000,
-      "borderRightWidth": 0,
-      "borderTopWidth": 1000,
-      "height": 1000,
-      "width": 1000,
-    }
-  }
-/>
+<div>
+  <div
+    class="mask mask-animation"
+    style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 800px; border-right-width: 800px;"
+  />
+</div>
 `;

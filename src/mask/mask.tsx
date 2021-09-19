@@ -86,15 +86,20 @@ export const Mask: React.FC<MaskProps> = (props) => {
     !visible && 'mask-not-visible'
   );
 
+  const getContent = () => {
+    if (!renderMaskContent) {
+      return null;
+    }
+    return renderMaskContent(
+      <div className={'mask-content'} style={{ width: '100%', height: '100%' }} />
+    );
+  };
+
   return (
     <div
       style={style}
       className={maskClasses}>
-      {
-        renderMaskContent && renderMaskContent(
-          <div className={'mask-content'} style={{ width: '100%', height: '100%' }} />
-        )
-      }
+      {getContent()}
     </div>
   );
 };

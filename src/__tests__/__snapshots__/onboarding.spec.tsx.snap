@@ -1,0 +1,391 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`引导组件相关测试 测试 ref API 1`] = `
+<html>
+  <head />
+  <body>
+    <div />
+    <div
+      class="mask mask-animation mask-not-visible"
+      style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 950px; border-right-width: 1000px;"
+    >
+      <div
+        class="mask-content ant-popover-open"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
+      <div>
+        <div
+          class="ant-popover ant-popover-placement-top "
+          style="pointer-events: none; left: 5px; top: -4px; transform-origin: 50% 4px;"
+        >
+          <div
+            class="ant-popover-content"
+          >
+            <div
+              class="ant-popover-arrow"
+            >
+              <span
+                class="ant-popover-arrow-content"
+              />
+            </div>
+            <div
+              class="ant-popover-inner"
+              role="tooltip"
+            >
+              <div
+                class="ant-popover-inner-content"
+              >
+                <div
+                  class="onboarding-popover-wrapper"
+                >
+                  <div
+                    class="onboarding-popover-content"
+                  >
+                    <div>
+                      step 1
+                    </div>
+                  </div>
+                  <div
+                    class="onboarding-popover-operation-area"
+                  >
+                    <div
+                      class="onboarding-default-operation"
+                    >
+                      <button
+                        class="ant-btn ant-btn-primary forward"
+                        type="button"
+                      >
+                        <span>
+                          Next
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
+
+exports[`引导组件相关测试 测试 ref API 2`] = `
+<html>
+  <head />
+  <body>
+    <div />
+    <div
+      class="mask mask-animation mask-not-visible"
+      style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 900px; border-right-width: 1000px;"
+    >
+      <div
+        class="mask-content ant-popover-open"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
+      <div>
+        <div
+          class="ant-popover ant-popover-placement-top "
+          style="pointer-events: none; left: 5px; top: -4px; transform-origin: 50% 4px;"
+        >
+          <div
+            class="ant-popover-content"
+          >
+            <div
+              class="ant-popover-arrow"
+            >
+              <span
+                class="ant-popover-arrow-content"
+              />
+            </div>
+            <div
+              class="ant-popover-inner"
+              role="tooltip"
+            >
+              <div
+                class="ant-popover-inner-content"
+              >
+                <div
+                  class="onboarding-popover-wrapper"
+                >
+                  <div
+                    class="onboarding-popover-content"
+                  >
+                    <div>
+                      step 2
+                    </div>
+                  </div>
+                  <div
+                    class="onboarding-popover-operation-area"
+                  >
+                    <div
+                      class="onboarding-default-operation"
+                    >
+                      <button
+                        class="ant-btn back"
+                        type="button"
+                      >
+                        <span>
+                          Previous
+                        </span>
+                      </button>
+                      <button
+                        class="ant-btn ant-btn-primary forward"
+                        type="button"
+                      >
+                        <span>
+                          Got it
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
+
+exports[`引导组件相关测试 测试 ref API 3`] = `
+<html>
+  <head />
+  <body>
+    <div />
+    <div
+      class="mask mask-animation mask-not-visible"
+      style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 950px; border-right-width: 1000px;"
+    >
+      <div
+        class="mask-content ant-popover-open"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
+      <div>
+        <div
+          class="ant-popover ant-popover-placement-top "
+          style="pointer-events: none; left: 5px; top: -4px; transform-origin: 50% 4px;"
+        >
+          <div
+            class="ant-popover-content"
+          >
+            <div
+              class="ant-popover-arrow"
+            >
+              <span
+                class="ant-popover-arrow-content"
+              />
+            </div>
+            <div
+              class="ant-popover-inner"
+              role="tooltip"
+            >
+              <div
+                class="ant-popover-inner-content"
+              >
+                <div
+                  class="onboarding-popover-wrapper"
+                >
+                  <div
+                    class="onboarding-popover-content"
+                  >
+                    <div>
+                      step 1
+                    </div>
+                  </div>
+                  <div
+                    class="onboarding-popover-operation-area"
+                  >
+                    <div
+                      class="onboarding-default-operation"
+                    >
+                      <button
+                        class="ant-btn ant-btn-primary forward"
+                        type="button"
+                      >
+                        <span>
+                          Next
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
+
+exports[`引导组件相关测试 测试步骤的切换能力 1`] = `
+<html>
+  <head />
+  <body>
+    <div />
+    <div
+      class="mask mask-animation mask-not-visible"
+      style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 950px; border-right-width: 1000px;"
+    >
+      <div
+        class="mask-content ant-popover-open"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
+      <div>
+        <div
+          class="ant-popover"
+          style="opacity: 0; pointer-events: none;"
+        >
+          <div
+            class="ant-popover-content"
+          >
+            <div
+              class="ant-popover-arrow"
+            >
+              <span
+                class="ant-popover-arrow-content"
+              />
+            </div>
+            <div
+              class="ant-popover-inner"
+              role="tooltip"
+            >
+              <div
+                class="ant-popover-inner-content"
+              >
+                <div
+                  class="onboarding-popover-wrapper"
+                >
+                  <div
+                    class="onboarding-popover-content"
+                  />
+                  <div
+                    class="onboarding-popover-operation-area"
+                  >
+                    <div
+                      class="onboarding-default-operation"
+                    >
+                      <button
+                        class="ant-btn ant-btn-primary forward"
+                        type="button"
+                      >
+                        <span>
+                          Next
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
+
+exports[`引导组件相关测试 测试步骤的切换能力 2`] = `
+<html>
+  <head />
+  <body>
+    <div />
+    <div
+      class="mask mask-animation mask-not-visible"
+      style="width: 1000px; height: 1000px; border-top-width: 0; border-left-width: 0; border-bottom-width: 900px; border-right-width: 1000px;"
+    >
+      <div
+        class="mask-content ant-popover-open"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
+      <div>
+        <div
+          class="ant-popover"
+          style="opacity: 0; pointer-events: none;"
+        >
+          <div
+            class="ant-popover-content"
+          >
+            <div
+              class="ant-popover-arrow"
+            >
+              <span
+                class="ant-popover-arrow-content"
+              />
+            </div>
+            <div
+              class="ant-popover-inner"
+              role="tooltip"
+            >
+              <div
+                class="ant-popover-inner-content"
+              >
+                <div
+                  class="onboarding-popover-wrapper"
+                >
+                  <div
+                    class="onboarding-popover-content"
+                  />
+                  <div
+                    class="onboarding-popover-operation-area"
+                  >
+                    <div
+                      class="onboarding-default-operation"
+                    >
+                      <button
+                        class="ant-btn back"
+                        type="button"
+                      >
+                        <span>
+                          Previous
+                        </span>
+                      </button>
+                      <button
+                        class="ant-btn ant-btn-primary forward"
+                        type="button"
+                      >
+                        <span>
+                          Got it
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`;
+
+exports[`引导组件相关测试 测试没有配置任何步骤的场景, 组件返回一个 null 1`] = `<div />`;
