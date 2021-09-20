@@ -16,20 +16,17 @@ export const Basic: React.FC = () => {
   const onboardingRef = useRef<OnBoardingRef>(null);
 
   setTimeout(() => {
-    onboardingRef.current.forward();
+    onboardingRef.current?.forward();
   }, 1000);
   setTimeout(() => {
-    onboardingRef.current.forward();
+    onboardingRef.current?.forward();
   }, 2000);
   setTimeout(() => {
-    onboardingRef.current.forward();
+    onboardingRef.current?.back();
   }, 3000);
   setTimeout(() => {
-    onboardingRef.current.back();
+    onboardingRef.current?.back();
   }, 4000);
-  setTimeout(() => {
-    onboardingRef.current.back();
-  }, 5000);
 
   return (
     <div className='App'>
@@ -123,7 +120,7 @@ export const Basic: React.FC = () => {
                 return (
                   <OnBoardingContent
                     title={'🎉 欢迎使用 antd-onboarding!'}
-                    content={'按钮有五种类型：主按钮、次按钮、虚线按钮、文本按钮和链接按钮。主按钮在同一个操作区域最多出现一次。'} />
+                    content={'下面会自动播放配置的步骤（基于 ref API）'} />
                 );
               },
               placement: 'bottom'

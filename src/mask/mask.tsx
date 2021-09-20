@@ -38,7 +38,8 @@ export const Mask: React.FC<MaskProps> = (props) => {
     visible = true,
     styleChecker,
     onAnimationEnd = noop,
-    onAnimationStart = noop
+    onAnimationStart = noop,
+    container
   } = props;
 
   const [style, setStyle] = useState<Record<string, any>>({});
@@ -48,7 +49,7 @@ export const Mask: React.FC<MaskProps> = (props) => {
       block: 'nearest'
     });
 
-    const style = getMaskStyle(element, document.documentElement);
+    const style = getMaskStyle(element, container || document.documentElement);
     setStyle(style);
   };
 
@@ -58,7 +59,7 @@ export const Mask: React.FC<MaskProps> = (props) => {
     }
 
     checkStyle();
-  }, [element]);
+  }, [element, container]);
 
   useEffect(() => {
     if (!element) {
@@ -71,13 +72,18 @@ export const Mask: React.FC<MaskProps> = (props) => {
     return () => {
       o.destroy();
     };
-  }, [element]);
+  }, [element, container]);
 
   useEffect(() => {
     onAnimationStart();
-    setTimeout(() => {
+    let t = null;
+    t = setTimeout(() => {
       onAnimationEnd();
     }, MASK_ANIMATION_TIME);
+
+    return () => {
+      window.clearTimeout(t);
+    };
   }, [element]);
 
   const maskClasses = classNames(

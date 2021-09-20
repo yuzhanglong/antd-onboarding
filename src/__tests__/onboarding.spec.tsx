@@ -1,22 +1,14 @@
 import { createTestContainer } from '../utils/create-test-container';
 import React from 'react';
 import { OnBoarding, OnBoardingRef } from '../';
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { OnBoardingStepConfig } from '../';
 import userEvent from '@testing-library/user-event';
 import zhCN from '../locale/zh-CN';
 
+jest.useFakeTimers();
+
 describe('引导组件相关测试', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    // 退出时进行清理
-    jest.useRealTimers();
-  });
-
-
   test('测试没有配置任何步骤的场景, 组件返回一个 null', () => {
     const container = createTestContainer(
       <OnBoarding steps={[]} />
@@ -66,7 +58,6 @@ describe('引导组件相关测试', () => {
     });
 
     expect(document.documentElement).toMatchSnapshot();
-    container.unmount();
   });
 
   test('测试 ref API', async () => {
@@ -113,6 +104,7 @@ describe('引导组件相关测试', () => {
       await ref.current.forward();
       jest.advanceTimersByTime(10000);
     });
+
     expect(document.querySelector('.step2')).toBeTruthy();
 
     await act(async () => {

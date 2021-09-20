@@ -17,6 +17,9 @@
     "sourceRoot": "src",
     "baseUrl": "src"
   },
+  "exclude": [
+    "__tests__"
+  ],
   "include": [
     "src/**/*"
   ]
