@@ -37,7 +37,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "yarn build && npm publish",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "antd": "^4.16.13",
