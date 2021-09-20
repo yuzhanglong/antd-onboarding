@@ -51,14 +51,14 @@ export const Basic: React.FC = () => {
               beforeBack: (currentStep) => {
                 console.log(`${currentStep} beforeForward!`);
               },
-              renderContent: (currentStep) => {
+              renderContent: () => {
                 return (
                   <div>
-                    {currentStep}
+                    <div className={''}>
+                      🎉 欢迎使用
+                    </div>
                     <div>
-                      回忆就像漩涡,
-                      它将我拉走. 时间的钟响起,
-                      我不该逗留
+
                     </div>
                   </div>
                 );
