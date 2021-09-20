@@ -1,14 +1,18 @@
-import React, { useRef } from 'react';
-import { Card } from 'antd';
-import { OnBoarding} from '../onboarding/onboarding';
+import React, { useRef, useState } from 'react';
+import { Button, Drawer, Dropdown, Menu, Tooltip } from 'antd';
+import { SearchOutlined, PoweroffOutlined, DownOutlined } from '@ant-design/icons';
+import { OnBoarding } from '../onboarding/onboarding';
 import { storiesOf } from '@storybook/react';
 import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
 import zhCN from '../locale/zh-CN';
-import { OnBoardingRef } from '../types';
+import OnBoardingContent from './onboarding-content';
+import { OnBoardingRef } from '../';
 
-export const OnBoardingPreview: React.FC = () => {
+
+export const Basic: React.FC = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const onboardingRef = useRef<OnBoardingRef>(null);
 
   setTimeout(() => {
@@ -29,76 +33,129 @@ export const OnBoardingPreview: React.FC = () => {
 
   return (
     <div className='App'>
-      <div
-        className='hello-1' id={'hello-1'}>
-        Hello World
+      <div id={'button-group'} style={{
+        display: 'inline-block',
+        marginTop: 20
+      }}>
+        <Button type='primary'>Primary Button</Button>
+        <Button>Default Button</Button>
+        <Button type='dashed'>Dashed Button</Button>
+        <br />
+        <Button type='text'>Text Button</Button>
+        <Button type='link'>Link Button</Button>
       </div>
-      <span
-        className='hello-2' id={'hello-2'}>
-        又是一个 Hello World~
-      </span>
-      <Card
-        className='hello-3'
-        id={'hello-3'}>
-        第三个 hello world!
-      </Card>
 
-      <iframe
-        id='inlineFrameExample'
-        title='Inline Frame Example'
-        width='300'
-        height='200'
-        src='https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik'>
-      </iframe>
+      <br />
+
+      <div
+        id={'button-group2'}
+        style={{
+          marginTop: 20,
+          display: 'inline-block'
+        }}>
+        <Tooltip title='search'>
+          <Button type='primary' shape='circle' icon={<SearchOutlined />} />
+        </Tooltip>
+        <Button type='primary' shape='circle'>
+          A
+        </Button>
+        <Button type='primary' icon={<SearchOutlined />}>
+          Search
+        </Button>
+        <Tooltip title='search'>
+          <Button shape='circle' icon={<SearchOutlined />} />
+        </Tooltip>
+      </div>
+
+      <br />
+
+      <div
+        id={'button-group3'}
+        style={{
+          marginTop: 20,
+          display: 'inline-block'
+        }}>
+        <>
+          <Button type='primary' loading>
+            Loading
+          </Button>
+          <Button type='primary' size='small' loading>
+            Loading
+          </Button>
+          <Button type='primary' icon={<PoweroffOutlined />} loading />
+        </>
+      </div>
+
+      <br />
+
+      <div
+        style={{
+          marginTop: 20,
+          display: 'inline-block'
+        }}>
+        <Drawer
+          mask={false}
+          className={'button-group4'}
+          title='Basic Drawer'
+          placement={'bottom'}
+          closable={false}
+          visible={isDropdownOpen}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
+      </div>
 
       <OnBoarding
+        useDefaultOperations={false}
         ref={onboardingRef}
         locale={zhCN}
         isShowMask={true}
         initialStep={0}
-        onStepsEnd={() => {
-          console.log('end!!');
-        }}
         steps={
           [
             {
               selector: () => {
-                return document.getElementById('hello-1');
+                return document.getElementById('button-group');
               },
-              renderContent: (currentStep) => {
+              renderContent: () => {
                 return (
-                  <div>
-                    {currentStep}
-                    <div>
-                      回忆就像漩涡,
-                      它将我拉走. 时间的钟响起,
-                      我不该逗留
-                    </div>
-                  </div>
+                  <OnBoardingContent
+                    title={'🎉 欢迎使用 antd-onboarding!'}
+                    content={'按钮有五种类型：主按钮、次按钮、虚线按钮、文本按钮和链接按钮。主按钮在同一个操作区域最多出现一次。'} />
                 );
               },
               placement: 'bottom'
             },
             {
               selector: () => {
-                return document.getElementById('hello-2');
+                return document.getElementById('button-group2');
+              },
+              renderContent: () => {
+                return (
+                  <OnBoardingContent
+                    title={'😆 图标按钮'}
+                    content={'当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。\n' +
+                    '\n' +
+                    '如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。'} />
+                );
               }
             },
             {
               selector: () => {
-                return document.getElementById('hello-3');
+                return document.getElementById('button-group3');
               },
-              renderContent: (currentStep) => {
+              renderContent: () => {
                 return (
-                  <div>{currentStep}</div>
+                  <OnBoardingContent
+                    title={'😊 加载中状态'}
+                    content={'添加 loading 属性即可让按钮处于加载状态~'} />
                 );
               },
-              placement: 'left'
-            },
-            {
-              placement: 'right',
-              selector: () => {
-                return document.getElementById('inlineFrameExample');
+              beforeForward: async () => {
+                setIsDropdownOpen(true);
+                await new Promise(resolve => setTimeout(resolve, 1000));
               }
             }
           ]
@@ -107,4 +164,4 @@ export const OnBoardingPreview: React.FC = () => {
   );
 };
 
-storiesOf('OnBoarding', module).add('Ref API', OnBoardingPreview);
+storiesOf('OnBoarding', module).add('Ref API', Basic);
