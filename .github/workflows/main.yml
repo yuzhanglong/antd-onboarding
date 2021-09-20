@@ -88,4 +88,9 @@ jobs:
       - name: coverage
         run: npm run coverage
 
+      - name: upload coverage files
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
     needs: setup
