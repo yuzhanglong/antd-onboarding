@@ -24,7 +24,6 @@ const OnBoardingContent: React.FC<OnBoardingContentProps> = (props) => {
         {content}
       </div>
     </div>
-
   );
 };
 
