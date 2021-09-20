@@ -14,17 +14,3 @@ export const createTestContainer = (cmp: ReactElement) => {
 
   return container;
 };
-
-export const createTestContainerAsync = async (cmp: ReactElement) => {
-  const el = document.createElement('div');
-  document.body.appendChild(el);
-
-  let container: RenderResult = null;
-  await act(async () => {
-    container = render(cmp, {
-      container: el
-    });
-  });
-
-  return container;
-};

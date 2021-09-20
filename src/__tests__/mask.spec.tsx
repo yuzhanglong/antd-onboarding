@@ -1,8 +1,8 @@
 import React from 'react';
-import { Mask } from '../mask/mask';
+import { Mask } from '../';
 import { noop } from 'lodash';
 import { createTestContainer } from '../utils/create-test-container';
-import { MASK_ANIMATION_TIME } from '../const';
+import { MASK_ANIMATION_TIME } from '../';
 import { act } from '@testing-library/react';
 
 describe('引导组件遮罩层相关测试', () => {

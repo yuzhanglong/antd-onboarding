@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { Card } from 'antd';
-import { OnBoarding, OnBoardingRef } from '../onboarding/onboarding';
+import { OnBoarding} from '../onboarding/onboarding';
 import { storiesOf } from '@storybook/react';
 import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
 import zhCN from '../locale/zh-CN';
+import { OnBoardingRef } from '../types';
 
 export const OnBoardingPreview: React.FC = () => {
   const onboardingRef = useRef<OnBoardingRef>(null);

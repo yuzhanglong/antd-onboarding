@@ -49,3 +49,8 @@ export interface OnMaskStyleCheckObserverResponse {
 
 
 export type MaskStyleChecker = (element: HTMLElement, check: () => void) => OnMaskStyleCheckObserverResponse
+
+export interface OnBoardingRef {
+  forward: () => void;
+  back: () => void;
+}

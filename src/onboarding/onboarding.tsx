@@ -1,10 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, Fragment, useCallback, useEffect, useImperativeHandle, useState } from 'react';
 import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
 import { KEYBOARD_NAMES } from '../const';
 import Content, { PopoverContentProps } from './content';
-import { MaskStyleChecker, OnBoardingLocale, OnBoardingStatus, OnBoardingStepConfig } from '../types';
+import { MaskStyleChecker, OnBoardingLocale, OnBoardingRef, OnBoardingStatus, OnBoardingStepConfig } from '../types';
 import { isNil, noop } from 'lodash';
 import enUS from '../locale/en-US';
 
@@ -38,11 +38,6 @@ export interface OnBoardingProps {
 
   // 挂载节点，默认为 document.body
   mountedElement?: HTMLElement;
-}
-
-export interface OnBoardingRef {
-  forward: () => void;
-  back: () => void;
 }
 
 export const OnBoarding = forwardRef<OnBoardingRef, OnBoardingProps>((props, ref) => {

@@ -7,6 +7,10 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}'
   ],
+  coveragePathIgnorePatterns: [
+    '.stories.tsx',
+    './src/utils/mask-checker/animation-frame.ts'
+  ],
   setupFiles: [
     './src/__tests__/setup.ts'
   ]

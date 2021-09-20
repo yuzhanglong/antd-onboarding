@@ -9,5 +9,6 @@ export type {
   OnBoardingStatus,
   OnBoardingStepConfig,
   OnMaskStyleCheckObserverResponse,
-  MaskStyleChecker
+  MaskStyleChecker,
+  OnBoardingRef
 } from './types';
