@@ -19,8 +19,8 @@ exports[`引导组件相关测试 测试步骤的切换能力 1`] = `
     >
       <div>
         <div
-          class="ant-popover"
-          style="opacity: 0; pointer-events: none;"
+          class="ant-popover ant-popover-placement-top "
+          style="pointer-events: none; left: 5px; top: -4px; transform-origin: 50% 4px;"
         >
           <div
             class="ant-popover-content"
@@ -91,8 +91,8 @@ exports[`引导组件相关测试 测试步骤的切换能力 2`] = `
     >
       <div>
         <div
-          class="ant-popover"
-          style="opacity: 0; pointer-events: none;"
+          class="ant-popover ant-popover-placement-top "
+          style="pointer-events: none; left: 5px; top: -4px; transform-origin: 50% 4px;"
         >
           <div
             class="ant-popover-content"

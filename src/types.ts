@@ -16,9 +16,6 @@ export interface OnBoardingStepConfig {
   // 选择的元素
   selector: () => HTMLElement | null;
 
-  // mask 的容器
-  container?: () => HTMLElement | null;
-
   // tooltip 的位置
   placement?: TooltipPlacement;
 

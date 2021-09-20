@@ -5,21 +5,13 @@ import { createTestContainer } from '../utils/create-test-container';
 import { MASK_ANIMATION_TIME } from '../';
 import { act } from '@testing-library/react';
 
+jest.useFakeTimers();
+
 describe('引导组件遮罩层相关测试', () => {
   const testBaseElement = document.createElement('div');
   testBaseElement.style.height = '200px';
   testBaseElement.style.width = '200px';
   document.body.appendChild(testBaseElement);
-
-
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    // 退出时进行清理
-    jest.useRealTimers();
-  });
 
   test('mask 配置的监听器应该按预期销毁', () => {
     const destroyCallback = jest.fn();
