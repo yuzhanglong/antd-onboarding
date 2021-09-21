@@ -1,6 +1,6 @@
-import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
 import { fireEvent } from '@testing-library/react';
-import { getMaskStyle } from '../';
+import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
+import { getMaskStyle } from '..';
 
 describe('测试工具函数', () => {
   test('测试基于窗口尺寸变化的监听器', () => {
@@ -22,8 +22,8 @@ describe('测试工具函数', () => {
       return 1;
     };
 
-    window.cancelAnimationFrame = (timer: any) => {
-      return;
+    window.cancelAnimationFrame = () => {
+
     };
 
     fireEvent.resize(window);

@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { act, render, RenderResult } from '@testing-library/react';
 
 export const createTestContainer = (cmp: ReactElement) => {

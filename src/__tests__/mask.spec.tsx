@@ -1,9 +1,8 @@
 import React from 'react';
-import { Mask } from '../';
 import { noop } from 'lodash';
-import { createTestContainer } from '../utils/create-test-container';
-import { MASK_ANIMATION_TIME } from '../';
 import { act } from '@testing-library/react';
+import { Mask, MASK_ANIMATION_TIME } from '..';
+import { createTestContainer } from '../utils/create-test-container';
 
 jest.useFakeTimers();
 

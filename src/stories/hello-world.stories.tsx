@@ -1,6 +1,6 @@
 import React from 'react';
-import { OnBoarding } from '../onboarding/onboarding';
 import { storiesOf } from '@storybook/react';
+import { OnBoarding } from '../onboarding/onboarding';
 import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';

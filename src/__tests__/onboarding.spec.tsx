@@ -1,9 +1,8 @@
-import { createTestContainer } from '../utils/create-test-container';
 import React from 'react';
-import { OnBoarding, OnBoardingRef } from '../';
 import { act } from '@testing-library/react';
-import { OnBoardingStepConfig } from '../';
 import userEvent from '@testing-library/user-event';
+import { createTestContainer } from '../utils/create-test-container';
+import { OnBoarding, OnBoardingRef , OnBoardingStepConfig } from "..";
 import zhCN from '../locale/zh-CN';
 
 jest.useFakeTimers();

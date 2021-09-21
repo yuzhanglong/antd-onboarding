@@ -1,11 +1,11 @@
 import React, { forwardRef, Fragment, useEffect, useImperativeHandle, useState } from 'react';
-import { Mask } from '../mask/mask';
 import ReactDOM from 'react-dom';
 import { Button, Popover } from 'antd';
+import { isNil, noop } from 'lodash';
+import { Mask } from '../mask/mask';
 import { KEYBOARD_NAMES } from '../const';
 import Content, { PopoverContentProps } from './content';
 import { MaskStyleChecker, OnBoardingLocale, OnBoardingRef, OnBoardingStatus, OnBoardingStepConfig } from '../types';
-import { isNil, noop } from 'lodash';
 import enUS from '../locale/en-US';
 import { useDomObserver } from '../hooks/use-dom-observer';
 
@@ -166,7 +166,7 @@ export const OnBoarding = forwardRef<OnBoardingRef, OnBoardingProps>((props, ref
 
     const options: PopoverContentProps = {
       operationArea: useDefaultOperations ? defaultOperation : undefined,
-      content: content
+      content
     };
 
     return !isMaskMoving ? (

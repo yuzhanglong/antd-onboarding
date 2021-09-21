@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
-import { Button, Drawer, Dropdown, Menu, Tooltip } from 'antd';
-import { SearchOutlined, PoweroffOutlined, DownOutlined } from '@ant-design/icons';
-import { OnBoarding } from '../onboarding/onboarding';
+import { Button, Drawer, Tooltip } from 'antd';
+import { SearchOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { storiesOf } from '@storybook/react';
+import { OnBoarding } from '../onboarding/onboarding';
 import './style.css';
 import '../../assets/index.css';
 import 'antd/dist/antd.css';
 import zhCN from '../locale/zh-CN';
 import OnBoardingContent from './onboarding-content';
-import { OnBoardingRef } from '../';
+import { OnBoardingRef } from '..';
 
 
 export const Basic: React.FC = () => {

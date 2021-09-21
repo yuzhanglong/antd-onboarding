@@ -5,7 +5,7 @@ const DOCUMENT_MOCK_SIZE = 1000;
 // hook 所有 HTMLElement 的 scrollIntoView 方法
 Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
   configurable: true,
-  get: function() {
+  get() {
     return noop;
   }
 });
@@ -13,7 +13,7 @@ Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
 // hook getBoundingClientRect 方法
 Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
   configurable: true,
-  get: function() {
+  get() {
     const targetElement = this;
     return function() {
       const KEYS = [

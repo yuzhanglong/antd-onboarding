@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MASK_ANIMATION_TIME } from '../const';
 import classNames from 'classnames';
+import { noop } from 'lodash';
+import { MASK_ANIMATION_TIME } from '../const';
 import { getMaskStyle } from '../utils/get-mask-style';
 import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
 import { MaskStyleChecker } from '../types';
-import { noop } from 'lodash';
 
 interface MaskProps {
   // 基准元素
