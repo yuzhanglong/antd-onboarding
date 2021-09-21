@@ -10,10 +10,10 @@
 
 <div>
 
+[![CI](https://github.com/yuzhanglong/antd-onboarding/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/yuzhanglong/antd-onboarding/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/yuzhanglong/antd-onboarding/branch/master/graph/badge.svg?token=OciNkZGJan)](https://codecov.io/gh/yuzhanglong/antd-onboarding)
 [![npm Version](https://img.shields.io/npm/v/antd-onboarding.svg)](https://www.npmjs.com/package/antd-onboarding)
 [![npm License](https://img.shields.io/npm/l/antd-onboarding.svg)](https://www.npmjs.com/package/antd-onboarding)
-
 </div>
 
 ![screenshot](https://github.com/yuzhanglong/yuzhanglong/blob/master/onboarding-demo.gif?raw=true)
