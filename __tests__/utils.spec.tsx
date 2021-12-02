@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
-import { resizeObserverChecker } from '../utils/mask-checker/resize-observer';
-import { getMaskStyle } from '..';
+import { resizeObserverChecker } from '../src/utils/mask-checker/resize-observer';
+import { getMaskStyle } from '../src';
 
 describe('测试工具函数', () => {
   test('测试基于窗口尺寸变化的监听器', () => {
