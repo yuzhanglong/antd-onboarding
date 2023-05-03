@@ -23,6 +23,9 @@
 
 ```shell
 yarn add antd-onboarding
+
+# or
+pnpm i antd-onboarding
 ```
 
 ## Getting Started
